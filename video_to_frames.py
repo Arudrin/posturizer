@@ -1,5 +1,6 @@
 from cv2 import cv2
 import numpy as np
+import os
 
 
 image = cv2.imread("blue.jpg") 
@@ -7,6 +8,10 @@ image = cv2.resize(image,(640,480))
 blackimage = cv2.imread("blackimage.jpg")
 blackimage = cv2.resize(blackimage,(640,480))
 vidcap = cv2.VideoCapture('IMG_4532.MOV')
+
+
+path = 'C:/Users/Aldrin Gwapo/Documents/Thesis 1/processed_frames'
+
 def getFrame(sec):
     vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
     hasFrames,frame = vidcap.read()
@@ -34,7 +39,8 @@ def getFrame(sec):
         cv2.drawContours(f,contours, -1, (255,255,255), 3) 
         
 
-        cv2.imwrite("TEST"+str(count)+".jpg", f)     # save frame as JPG file
+        cv2.imwrite( os.path.join(path , "TEST"+str(count)+".jpg"), f)     # save frame as JPG file
+
     return hasFrames
 sec = 0
 frameRate =2 #//it will capture image each 15 second
