@@ -10,11 +10,11 @@ blackimage = cv2.resize(blackimage,(640,480))
 video = cv2.VideoCapture('vids/IMG_5048.MOV')
 
 
-#video.set(cv2.CAP_PROP_POS_MSEC,49*1000)
-path = 'C:/Users/Aldrin Gwapo/Documents/Thesis 1/processed_frames'
+
+path = 'C:/Users/Aldrin Gwapo/Documents/Thesis 1/processed_frames' 
 count = 0
 ret = 1
-while ret: 
+while ret:  #CTRL C at console/terminal to force stop loop
   
     ret, frame = video.read()
 
@@ -33,18 +33,19 @@ while ret:
     f = frame - res 
     f = np.where(f == 0, blackimage, image)
     cv2.drawContours(f,contours, -1, (255,255,255), 3) 
-    #cv2.imshow("video", f)
-    #cv2.imshow("edges", edges)
 
     count+=1
+    cv2.imwrite( os.path.join(path , "ALframe"+str(count)+".jpg"), f) 
+
+    #CTRL C at console/terminal to force stop loop
+
+    #cv2.imshow("video", f)           #comment out to view continous frames
+    #cv2.imshow("edges", edges)
 
 
-    cv2.imwrite( os.path.join(path , "ALframe"+str(count)+".jpg"), f)
-
-
-    #k=cv2.waitKey(1)
-    #if cv2.waitKey(25) == 27: 
-        #break 
+    #k=cv2.waitKey(1) 
+    #if cv2.waitKey(25) == 27: #comment out if viewing frames and press escape to stop. 
+    #    break 
   
 #video.release() 
 #cv2.destroyAllWindows() 
